@@ -19,16 +19,20 @@
                     <form method="POST" id="signup-form" class="signup-form">
                         <h2 class="form-title">Create account</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <input type="text" class="form-input" name="first_name" id="name" placeholder="Your First Name"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <input type="text" class="form-input" name="last_name" id="name" placeholder="Your Last Name"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Roll-Number"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Room-Number"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Name"/>
+                            <input type="tel" class="form-input" id="phone" name="phone"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Your Phone Number"/>
                         </div>
                         <div class="form-group">
                             <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
@@ -40,6 +44,11 @@
                         <div class="form-group">
                             <input type="password" class="form-input" name="re_password" id="re_password" placeholder="Repeat your password"/>
                         </div>
+                        <h9 >Upload Your Photo</h9>
+                        <div class="form-group">
+                        <input type="file" class="form-input" name="image" placeholder="upload your image"/>
+                        </div>
+                        
                         <div class="form-group">
                             <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                             <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
