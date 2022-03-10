@@ -8,3 +8,6 @@ def index(request):
 
 def home(request):
     return render(request, "grabit/index.html")
+
+def ads(request):
+    return render(request, "grabit/ads.html")
