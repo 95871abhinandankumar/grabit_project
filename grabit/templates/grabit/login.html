@@ -28,12 +28,10 @@
 {% block content %}
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('static/grabit/login/images/bg-01.jpg');">
+		<div class="container-login100" style="background-image: url('static/grabit/login/images/bg-01.jpg'); padding-top:10%;">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
-					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
-					</span>
+					
 
 					<span class="login100-form-title p-b-34 p-t-27">
 						Log in
@@ -62,14 +60,14 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-90">
+					<div class="text-center p-t-30">
 						<a class="txt1"  href="#">
 							Forgot Password?
 						</a>
 					</div>
-					<div class="text-center p-t-90">
+					<div class="text-center p-t-30">
 						Don't have an account?
-						<a class="text-center p-t-90"  style="color: aliceblue;" href="#">
+						<a class="text-center p-t-30"  style="color: aliceblue;" href="{% url 'register' %}">
 							Sign Up 
 						</a>
 					</div>
@@ -80,10 +78,17 @@
 	
 
 	<div id="dropDownSelect1"></div>
+	<script type="text/javascript" src="js/bootstrap/bootstrap-dropdown.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('.dropdown-toggle').dropdown()
+			});
+		</script>
 	{% endblock content %}
+
 {% block javascriptBlock %}	
 <!--===============================================================================================-->
-	<script src="static/grabit/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+	
 <!--===============================================================================================-->
 	<script src="static/grabit/login/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
