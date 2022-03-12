@@ -1,11 +1,12 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/b8b606b0e9.js" crossorigin="anonymous"></script>
     <title>Grabit</title>
     {% block cssBlock %}
 
@@ -47,8 +48,22 @@
       <li class="nav-item">
         <a class="nav-link" href="#">LogIn/SignUp</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">User profile</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          User Profile
+        </a>
+        <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+          <div class="dropdown-item">Hello,<br>User Name<br>
+          <a  href="#">View and edit profile</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"><i class="fa-solid fa-bullhorn" ></i>&nbsp;My ADS</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Bought Packages & Billing</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"><i class="fa fa-circle-question"></i>&nbsp;Help</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</a>
+          <a class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">post ad</a>

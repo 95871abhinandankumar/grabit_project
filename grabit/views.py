@@ -11,3 +11,6 @@ def home(request):
 
 def register(request):
     return render(request, "grabit/register.html")
+
+def logIn(request):
+    return render(request, "grabit/login.html")
