@@ -21,7 +21,7 @@ body {
     border-color: #5ec0f8;
 }
 
-.profile-button {
+.edit-button {
     width: 30%;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -35,11 +35,32 @@ body {
     color: #fff;
     text-transform: uppercase;
     border: none;
-    background-image: -moz-linear-gradient(to left, #74ebd5, #9face6);
-    background-image: -ms-linear-gradient(to left, #74ebd5, #9face6);
-    background-image: -o-linear-gradient(to left, #74ebd5, #9face6);
-    background-image: -webkit-linear-gradient(to left, #74ebd5, #9face6);
-    background-image: linear-gradient(to left, #74ebd5, #9face6);
+    background-image: -moz-linear-gradient(to left, #417deb, #9face6);
+    background-image: -ms-linear-gradient(to left, #417deb, #9face6);
+    background-image: -o-linear-gradient(to left, #417deb, #9face6);
+    background-image: -webkit-linear-gradient(to left, #417deb, #9face6);
+    background-image: linear-gradient(to left, #417deb, #9face6);
+}
+
+.save-button {
+    width: 30%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    padding: 17px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    background-image: -moz-linear-gradient(to right, #aff0d7, #47e61f);
+    background-image: -ms-linear-gradient(to right, #aff0d7,#47e61f);
+    background-image: -o-linear-gradient(to right, #aff0d7,#47e61f);
+    background-image: -webkit-linear-gradient(to right, #aff0d7,#47e61f);
+    background-image: linear-gradient(to right, #aff0d7,#47e61f);
 }
 
 
