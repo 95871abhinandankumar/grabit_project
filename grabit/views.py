@@ -15,3 +15,6 @@ def logIn(request):
 
 def edit_profile(request):
     return render(request, "grabit/edit_profile.html")
+
+def view_profile(request):
+    return render(request, "grabit/view_profile.html")
