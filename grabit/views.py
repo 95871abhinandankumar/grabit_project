@@ -18,3 +18,6 @@ def edit_profile(request):
 
 def view_profile(request):
     return render(request, "grabit/view_profile.html")
+
+def submit_ad(request):
+    return render(request, "grabit/submit_ad.html")
