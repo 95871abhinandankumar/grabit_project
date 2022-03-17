@@ -30,9 +30,9 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('static/grabit/login/images/bg-01.jpg'); padding-top:10%;">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
-					
-
+				<form class="login100-form validate-form" method="POST">
+					{% csrf_token %}					
+					<h4 style="color:red">{{ error_message }}</h4>
 					<span class="login100-form-title p-b-34 p-t-27">
 						Log in
 					</span>

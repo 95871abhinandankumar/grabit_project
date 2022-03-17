@@ -7,17 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/b8b606b0e9.js" crossorigin="anonymous"></script>
-    <title>Grabit</title>
+    <title class="bg-danger" style="background-color:rgba(255, 140, 0, 0.849);">Grabit</span></title>
     {% block cssBlock %}
 
     {% endblock cssBlock %}
     
+    <style>
+      .circle {
+        border-radius: 50%;
+        width:30 px;
+        height: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: rgba(247, 127, 29, 0.849);
+        border: 3px rgba(247, 127, 29, 0.849);
+        color: #fff;
+        text-align: center;
+        font: 40px;
+      }
+    </style>
  
    
 </head>
 <body>
     <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ml-5"  href="{% url 'home' %}"><img src="static/grabit/images/price_tag_mirror.png" style=" height:70px;width:70px" alt="company logo"><span style="font-family: sans-serif; font-size:30px; font-weight: bold;">Grabit</span></a>
+  <a class="navbar-brand ml-5"  href="{% url 'home' %}"><img src="static/grabit/images/price_tag_mirror.png" style=" height:70px;width:70px" alt="company logo"><span style="font-family: sans-serif; font-size:30px; font-weight: bold;">Grab<span class="circle">it</span></span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -45,16 +59,19 @@
       <li class="nav-item justify-content-between mr-3">
         <a class="nav-link" href="#"><i class="fa-solid fa-comment fa-2xl"></i>&nbsp;&nbsp;</a>
       </li>
+      {% if user.is_authenticated %}
+
       <li class="nav-item justify-content-between mr-3">
         <a class="nav-link"  href="{% url 'register' %}"><i class="fa-solid fa-user-plus fa-xl"></i>&nbsp;</a>
       </li>
+      {% else %}
       <li class="nav-item dropdown justify-content-between dropleft mr-3">
         
         <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="static/grabit/images/img_avatar.png" style="border-radius: 50%; height:30px;width:30px" alt="Avatar">
         </a>
         <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
-          <div class="dropdown-item">Hello,<br>User Name<br>
+          <div class="dropdown-item">Hello,<br>{{ user.first_name }}<br>
           <a  href="{% url 'edit_profile' %}">View and edit profile</a>
           </div>
           <div class="dropdown-divider"></div>
@@ -67,6 +84,9 @@
         </div>
         
       </li>
+
+      {% endif %}
+
       <li class="nav-item justify-content-between">
         <a class="nav-link justify-content-between" href="#"><i class="fa-solid fa-square-plus fa-2xl"></i>&nbsp;<span style="font-size: 20px;" >ad</span></a>
       </li>
