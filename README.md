@@ -11,4 +11,4 @@
 
 ### Subject: Software Engineering 
 
-![IIITG LOGO](/grabit/static/grabit/img/iiitg.jpg)
+![IIITG LOGO](/grabit/static/grabit/images/iiitg.jpg)
