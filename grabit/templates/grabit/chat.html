@@ -1,0 +1,49 @@
+{% extends "grabit/index.html" %}
+{% load static %}
+
+{% block cssBlock %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="static/grabit/chat/main.css">
+{% endblock cssBlock %}
+{% block content %}
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    {% for obj in usersChat_recieved %}    
+                    <li class="clearfix"  onclick="myFunction()">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                        <div class="about">
+                            <div id="hidden_sender_id" style="display: none;">{{ obj.sender_id }}</div>
+                            <div class="name" id="active_user">{{ obj.username }}</div>
+                        </div> 
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+<script>
+function myFunction(){
+    document.getElementById("active_user_name").innerHTML = document.getElementById("active_user").innerText;
+}
+</script>
+	
+{% endblock content %}
+
+{% block javascriptBlock %}	
+
+{% endblock javascriptBlock %}

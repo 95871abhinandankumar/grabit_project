@@ -1,17 +1,22 @@
-
+from asyncio.windows_events import NULL
+from distutils.log import error
+from email import message
+from pyexpat.errors import messages
+from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import UserForm
+from django.core import serializers
+import json
 
 
-   
-from django.contrib.auth import login, authenticate  
+from django.contrib.auth import login, authenticate , logout 
 from django.contrib.sites.shortcuts import get_current_site  
 from django.utils.encoding import force_bytes, force_str  
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from django.template.loader import render_to_string  
 from .token import account_activation_token 
-from .models import User  
+from .models import User , UserChat 
 from django.core.mail import EmailMessage  
 
 import re
@@ -19,18 +24,32 @@ import re
 # Create your views here.
 
 
-def logout(request):
-    logout(request)
+def logout_function(request):
+    try:
+        print("before deleting session")
+        del request.session['user_id']
+        print("after deleting session")
+    except KeyError:
+        pass
     return redirect('home')
     
 
 def home(request):
-    return render(request, "grabit/index.html")
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    
+    
+    return render(request, "grabit/index.html", {'user': obj})
 
 def register(request):
     return render(request, "grabit/register.html")
 
 def logIn(request):
+    obj=None
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['pass']
@@ -61,6 +80,8 @@ def logIn(request):
                 if obj.password_field != password:
                     return render(request, "grabit/login.html" , {'error_message':'Invalid password'})
                 
+                
+                request.session['user_id'] = obj.id
                 return render(request, "grabit/index.html" , {'user':obj})
                 
             
@@ -68,10 +89,18 @@ def logIn(request):
             return render(request, "grabit/login.html" , {'error_message':'User name is incorrect!'})
         
         
-    return render(request, "grabit/login.html")
+    return render(request, "grabit/login.html", {'user':obj})
 
 def edit_profile(request):
-    return render(request, "grabit/edit_profile.html")
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    if obj is None:
+        return HttpResponse("page does't exits")
+    return render(request, "grabit/edit_profile.html", { 'user' : obj})
 
 
 def register(request):  
@@ -135,3 +164,76 @@ def activate(request, uidb64, token):
         return render(request, "grabit/after_account_activation.html" )  
     else:  
         return HttpResponse('Activation link is invalid!')  
+    
+
+
+def userChat(request):
+    
+    
+    obj = None
+    if 'user_id' in request.session.keys():
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    if obj is None:
+        return redirect('login')
+    
+    if request.method == 'POST':
+        
+        ch = UserChat()
+
+    usersChat_recieved = dict()
+    usersChat_sent = dict()
+    
+    
+    try:
+        allChat_received = UserChat.objects.order_by('message_date_time').filter(receiver_id=obj.id)
+    except UserChat.DoesNotExist:
+        allChat_received = None
+    
+    try:
+        allChat_sent = UserChat.objects.order_by('message_date_time').filter(sender_id=obj.id)
+    except UserChat.DoesNotExist:
+        allChat_sent = None
+    
+    
+    for ob in allChat_received:
+        # print("printing sender id in for loop : ", ob.sender_id)
+        # print("Message ", ob.message, "reciever ", ob.receiver_id, "sender ", ob.sender_id)
+        # print("type : ", type(ob.sender_id))
+        try:
+            userObj=User.objects.get(pk=ob.sender_id)
+        except User.DoesNotExist:
+            userObj = None
+        
+        if  ob.sender_id not in usersChat_recieved.keys():
+            usersChat_recieved[ob.sender_id] = {'username':userObj.first_name, 'sender_id':userObj.id, 'messages':[ob]}
+            
+        else:
+            usersChat_recieved[ob.sender_id]['messages'].append(ob)
+    
+    
+    for ob in allChat_sent:
+        try:
+            userObj=User.objects.get(pk=ob.receiver_id)
+        except User.DoesNotExist:
+            userObj = None
+        
+        if ob.sender_id not in usersChat_sent.keys():
+            usersChat_sent[ob.receiver_id] = {'username':userObj.first_name, 'receiver_id':userObj.id, 'messages':[ob]}
+        
+        else:
+            usersChat_sent[ob.receiver_id]['messages'].append(ob)
+        
+    print("User chat received : ", usersChat_recieved)
+    print("user chat sent ", usersChat_sent)
+        
+    return render(request, 'grabit/chat.html', {'chats_received':usersChat_recieved, 'chats_sent':usersChat_sent ,'user': obj})
+
+def chat_with_someone(request):
+    obj = None
+    if 'user_id' in request.session.keys():
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    if obj is None:
+        return redirect('login')
+    return render(request, "grabit/chat_with_someone.html", {'user': obj})
