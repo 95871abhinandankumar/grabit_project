@@ -213,12 +213,13 @@ def userChat(request):
     
     
     for ob in allChat_sent:
+        print("in all chat sent")
         try:
             userObj=User.objects.get(pk=ob.receiver_id)
         except User.DoesNotExist:
             userObj = None
         
-        if ob.sender_id not in usersChat_sent.keys():
+        if ob.receiver_id not in usersChat_sent.keys():
             usersChat_sent[ob.receiver_id] = {'username':userObj.first_name, 'receiver_id':userObj.id, 'messages':[ob]}
         
         else:

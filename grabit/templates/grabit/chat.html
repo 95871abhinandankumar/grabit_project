@@ -19,14 +19,23 @@
                 </div>
 
                 <ul class="list-unstyled chat-list mt-2 mb-0">
-                    {% for obj in usersChat_recieved %}    
-                    <li class="clearfix"  onclick="myFunction()">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        <div class="about">
-                            <div id="hidden_sender_id" style="display: none;">{{ obj.sender_id }}</div>
-                            <div class="name" id="active_user">{{ obj.username }}</div>
-                        </div> 
-                    </li>
+                    {% for key, value in chats_received.items %}    
+                        <li class="clearfix"  onclick="myFunction()">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                            <div class="about">
+                                <div class="name" id="active_user">{{ value.username }}</div>
+                            </div> 
+                        </li>
+                    {% endfor %}
+                    {% for key, value in chats_sent.items %}
+                        <!-- {% if key not in chats_received.keys %} -->
+                            <li class="clearfix"  onclick="myFunction()">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name" id="active_user">{{ value.username }}</div>
+                                </div> 
+                            </li>
+                        <!-- {% endif %} -->
                     {% endfor %}
                 </ul>
             </div>
