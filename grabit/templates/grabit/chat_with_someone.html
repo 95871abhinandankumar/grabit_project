@@ -19,7 +19,7 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
                             </a>
                             <div class="chat-about">
-                                <h6 class="m-b-0" id="active_user_name">Aiden Chavez</h6>
+                                <h6 class="m-b-0" id="active_user_name">{{ chat_person.first_name }}</h6>
                             </div>
                         </div>
                         
@@ -27,22 +27,26 @@
                 </div>
                 <div class="chat-history">
                     <ul class="m-b-0">
-                        {% for mess in obj.messages %}         
-                        <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">{{ mess.message_date_time }}</span>
-                            </div>
-                            <div class="message my-message">{{ mess.message }}</div>
-                        </li>
-                        {% endfor %}
+                        {% for mess in chat_history %}  
 
-                        {% for mess in obj.messages %}         
+                        {% if  request.session.user_id == mess.sender_id %}
+                            <li class="clearfix">
+                                <div class="message-data">
+                                    <span class="message-data-time">{{ mess.message_date_time }}</span><br>
+                                    <span class="message-data-time">{{ user.first_name }}</span>
+                                </div>
+                                <div class="message my-message">{{ mess.message }}</div>
+                            </li>
+                        {% else %}
                         <li class="clearfix">
-                            <div class="message-data">
-                                <span class="message-data-time">{{ mess.message_date_time }}</span>
-                            </div>
-                            <div class="message my-message">{{ mess.message }}</div>
-                        </li>
+                                <div class="message-data">
+                                    <span class="message-data-time">{{ mess.message_date_time }}</span><br>
+                                    <span class="message-data-time">{{ chat_person.first_name }}</span>
+                                </div>
+                                <div class="message my-message">{{ mess.message }}</div>
+                            </li>
+
+                        {% endif %}
                         {% endfor %}
 
                     </ul>
@@ -53,7 +57,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-send"></i></span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Enter text here...">                                    
+                        <form id="send_message" method="GET">
+                        <input type="hidden" style="display: none;" name="receiver_id" value="{{ chat_person.id }}"><br>
+                        <input type="text" id="text_mess" name="text" class="form-control" placeholder="Enter text here..." required>
+                        </form>                                    
                     </div>
                 </div>
             </div>
@@ -62,9 +69,15 @@
 </div>
 </div>
 <script>
-function myFunction(){
-    document.getElementById("active_user_name").innerHTML = document.getElementById("active_user").innerText;
-}
+var form = document.getElementById("send_message");
+document.getElementById('text_mess').addEventListener('keypress', function(event) {
+        if (event.keyCode == 13 && document.getElementById('text_mess').value != "") {
+
+            
+            form.submit();
+        }
+    });
+
 </script>
 	
 {% endblock content %}

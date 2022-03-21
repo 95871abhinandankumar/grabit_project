@@ -24,7 +24,12 @@
                             <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
                             <div class="about">
                                 <div class="name" id="active_user">{{ value.username }}</div>
-                            </div> 
+                            </div>
+                            <form id="form-id" method="POST" action="/chat_">
+                                {% csrf_token %}
+
+                                    <input type="hidden" name="active_user_id" value="{{ key }}">
+                            </form> 
                         </li>
                     {% endfor %}
                     {% for key, value in chats_sent.items %}
@@ -34,6 +39,13 @@
                                 <div class="about">
                                     <div class="name" id="active_user">{{ value.username }}</div>
                                 </div> 
+
+                                <form id="form-id" method="POST" action="/chat_">
+                                    {% csrf_token %}
+
+                                    <input type="hidden"  name="active_user_id" value="{{ key }}"><br>
+                                </form>
+
                             </li>
                         <!-- {% endif %} -->
                     {% endfor %}
@@ -46,8 +58,9 @@
 </div>
 </div>
 <script>
+var form = document.getElementById("form-id");
 function myFunction(){
-    document.getElementById("active_user_name").innerHTML = document.getElementById("active_user").innerText;
+    form.submit();
 }
 </script>
 	

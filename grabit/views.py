@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from .forms import UserForm
 from django.core import serializers
 import json
+import datetime
 
 
 from django.contrib.auth import login, authenticate , logout 
@@ -179,7 +180,7 @@ def userChat(request):
     
     if request.method == 'POST':
         
-        ch = UserChat()
+        print("printing active user of chat",request.POST['active_user_id'])
 
     usersChat_recieved = dict()
     usersChat_sent = dict()
@@ -231,10 +232,39 @@ def userChat(request):
     return render(request, 'grabit/chat.html', {'chats_received':usersChat_recieved, 'chats_sent':usersChat_sent ,'user': obj})
 
 def chat_with_someone(request):
+    
+    
+    
     obj = None
     if 'user_id' in request.session.keys():
         obj = User.objects.get(pk=request.session['user_id'])
     
     if obj is None:
         return redirect('login')
+    
+    if request.method == 'GET':
+        text = request.GET['text']
+        temp = request.GET['receiver_id']
+        sender = obj.id
+        curr_date_time = datetime.datetime.now()
+        print("before error")
+        print(UserChat.objects.create(message=text, sender_id=sender, receiver_id=temp,message_date_time=curr_date_time))
+        print("after error")
+        
+        chat_person = User.objects.get(pk=temp)
+        x = list (UserChat.objects.raw('select * from grabit_userchat where (sender_id=%s and receiver_id=%s) or (sender_id=%s and receiver_id=%s) order by  message_date_time', [int(temp), obj.id, obj.id,int(temp)]))
+        
+        return render(request, "grabit/chat_with_someone.html", {'chat_history':x,'user': obj, 'chat_person':chat_person})
+    
+    
+    if request.method == 'POST':
+        
+        print("printing active user of chat in chat with someone",request.POST['active_user_id'])
+        temp = request.POST['active_user_id']
+        chat_person = User.objects.get(pk=request.POST['active_user_id'])
+        x = list (UserChat.objects.raw('select * from grabit_userchat where (sender_id=%s and receiver_id=%s) or (sender_id=%s and receiver_id=%s) order by  message_date_time', [int(temp), obj.id, obj.id,int(temp)]))
+        
+        return render(request, "grabit/chat_with_someone.html", {'chat_history':x,'user': obj, 'chat_person':chat_person})
+        
+    
     return render(request, "grabit/chat_with_someone.html", {'user': obj})
