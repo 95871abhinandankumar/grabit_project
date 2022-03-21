@@ -9,6 +9,8 @@ from .forms import UserForm
 from django.core import serializers
 import json
 import datetime
+import secrets
+import string
 
 
 from django.contrib.auth import login, authenticate , logout 
@@ -46,8 +48,36 @@ def home(request):
     
     return render(request, "grabit/index.html", {'user': obj})
 
-def register(request):
-    return render(request, "grabit/register.html")
+
+def forgot_password(request):
+    obj = None
+    if request.method == 'POST':
+        username = request.POST['username']
+        alphabet = string.ascii_letters + string.digits
+        password = ''.join(secrets.choice(alphabet) for i in range(10))
+        
+        try:
+            # print(User.objects.get(email_id=username))
+            obj = User.objects.get(email_id=username) 
+            mail_subject = 'Password Reset'  
+            message = render_to_string('grabit/password_reset.html', {  
+                'user': obj,   
+                'password':password,  
+            }) 
+            # print(message) 
+            to_email = username  
+            email = EmailMessage(  
+                        mail_subject, message, to=[to_email]  
+            )  
+            email.send()
+            obj.password_field = password
+            obj.save()
+            
+            return render(request, "grabit/After_password_reset.html")
+        except User.DoesNotExist:
+            return render(request, "grabit/forgot_password.html" , {'error_message':'Please enter a correct email-id','user': obj})
+    
+    return render(request, "grabit/forgot_password.html" ,{'user': obj})
 
 def logIn(request):
     obj=None
@@ -93,18 +123,41 @@ def logIn(request):
     return render(request, "grabit/login.html", {'user':obj})
 
 def edit_profile(request):
+    
     obj = None
-    print(request.user.is_authenticated)
     if 'user_id' in request.session.keys():
-        print("In user ........................")
         obj = User.objects.get(pk=request.session['user_id'])
     
     if obj is None:
         return HttpResponse("page does't exits")
+    
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        roll_number = request.POST['roll_number']
+        room_number = request.POST['room_number']
+        phone_number = request.POST['phone_number']
+        
+        if first_name != "":
+            obj.first_name = first_name
+        if last_name != "":
+            obj.last_name = last_name 
+        if roll_number != "":
+            obj.roll_number = roll_number 
+        if room_number != "":
+            obj.room_number = room_number 
+        if phone_number != "":
+            obj.phone_number = phone_number  
+        
+        obj.save()
+        
+        
+        
     return render(request, "grabit/edit_profile.html", { 'user' : obj})
 
 
-def register(request):  
+def register(request):
+    obj = None 
     if request.method == 'POST':  
         form = UserForm(request.POST, request.FILES) 
         # print("Hello") 
@@ -143,7 +196,7 @@ def register(request):
                 return HttpResponse('Please confirm your email address to complete the registration')  
     else:  
         form = UserForm()
-    return render(request, "grabit/register.html" , {'form': form})   
+    return render(request, "grabit/register.html" , {'form': form, 'user':obj})   
 
 
 
