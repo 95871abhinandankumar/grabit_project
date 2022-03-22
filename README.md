@@ -1,11 +1,12 @@
 
 # Grab-It
 
-## Subject: Software Engineering
-## B.Tech CSE Semester-VI Project by Group-7
-- 	## [1901004]	Abhinandan Kumar
-- 	## [1901049]	Ayushman Singh Chauhan
-- 	## [1901091]	Krishnav Garg
+# Subject: Software Engineering
+# <u>B.Tech CSE Semester-VI Project by Group-7</u>
+
+- [1901004]	Abhinandan Kumar
+- [1901049]	Ayushman Singh Chauhan
+- [1901091]	Krishnav Garg
 
 # Requirements:
 https://pypi.org/
