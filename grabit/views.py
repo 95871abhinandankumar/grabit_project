@@ -26,6 +26,29 @@ import re
 
 # Create your views here.
 
+def productPage(request):
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('home')
+
+    return render(request, "grabit/productpage.html", {'user': obj})
+
+def addProduct(request):
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('home')
+
+    return render(request, "grabit/addProduct.html", {'user': obj})
 
 def logout_function(request):
     try:
@@ -321,3 +344,37 @@ def chat_with_someone(request):
         
     
     return render(request, "grabit/chat_with_someone.html", {'user': obj})
+
+
+def changePassword(request):
+    obj = None
+    if 'user_id' in request.session.keys():
+            obj = User.objects.get(pk=request.session['user_id'])
+            
+    
+    print("in change Password method")
+    if obj == None:
+        print("obj is none in change password")
+        return redirect('login')
+        
+    if request.method == 'POST': 
+        # print("After submission of form")
+        # print("old password : ", request.POST['oldPassword'])
+        # print("new Password : " , request.POST['newPassword'])
+        # print("reenter new password : ", request.POST['reenter_newPassword'])
+        oldPass = request.POST['oldPassword']
+        newPass = request.POST['newPassword']
+        reenter_newPass = request.POST['reenter_newPassword']
+        if oldPass != obj.password_field:
+            return render(request, "grabit/changePassword.html", {'user':obj, 'error_message':"Current password is incorrect."})
+        
+        if newPass != reenter_newPass:
+            return render(request, "grabit/changePassword.html", {'user':obj, 'error_message':"New password is not matching with Re-entered password."})
+        
+        obj.password_field = newPass
+        obj.save()
+        return render(request, "grabit/changePassword.html", {'user':obj, 'success_message':"Password successfully updated."})
+            
+    
+    return render(request, "grabit/changePassword.html", {'user':obj})
+    
