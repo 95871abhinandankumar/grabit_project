@@ -19,7 +19,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from django.template.loader import render_to_string  
 from .token import account_activation_token 
-from .models import User , UserChat 
+from .models import Advertisement, Product, User , UserChat 
 from django.core.mail import EmailMessage  
 
 import re
@@ -34,7 +34,12 @@ def productPage(request):
         obj = User.objects.get(pk=request.session['user_id'])
     
     else:
+        messages.Info(request, "Please login first before posting ad")
         return redirect('home')
+    
+    
+    if request.method == 'POST':
+        pass
 
     return render(request, "grabit/productpage.html", {'user': obj})
 
@@ -47,6 +52,65 @@ def addProduct(request):
     
     else:
         return redirect('home')
+    
+    if request.method == 'POST':
+        item_name = request.POST['adTitle']
+        price = request.POST['price']
+        category = request.POST['category']
+        item_description = request.POST['description']
+        
+        number = re.compile(r'^\d*\.?\d*$')
+        if bool(number.match(price)) == False:
+            return render(request, "grabit/addProduct.html" , {'user':obj, 'error_message_for_price':'Enter digits only(0-9)'})
+        
+        try:
+            image1 = request.FILES['file1']
+            image2 = request.FILES['file2']
+            image3 = request.FILES['file3']
+            image4 = request.FILES['file4']
+        except Exception:
+            print("image not found!")
+            message="All four images are required"
+            return render(request, "grabit/addProduct.html", {'user': obj, 'error_message':message})
+
+        item = Product()
+        
+        item.item_name = item_name
+        item.price = price
+        item.category = category
+        item.item_description = item_description
+        item.image1 = image1
+        item.image2 = image2
+        item.image3 = image3
+        item.image4 = image4
+        
+        
+        
+        try:
+            request.POST['radio1']
+            # print("For Sell")
+            item.owner = obj.id
+        except Exception:
+            print("For buy")
+            item.buyer = obj.id
+            
+        item.save()
+        
+        ad = Advertisement()
+        ad.ad_date_time = datetime.datetime.now()
+        ad.product_id = item.id
+        ad.ad_likes = 0
+        ad.ad_dislikes = 0
+        
+        ad.save()
+            
+        
+        # print("In add produt view ..................")
+        # print("item title : ", item_name)
+        # print("item description : ", item_description)
+        # print("item category : ", category)
+        # print("item price ", price)
+        
 
     return render(request, "grabit/addProduct.html", {'user': obj})
 
@@ -68,8 +132,10 @@ def home(request):
         obj = User.objects.get(pk=request.session['user_id'])
     
     
+    products = Product.objects.all()
     
-    return render(request, "grabit/index.html", {'user': obj})
+    
+    return render(request, "grabit/index.html", {'user': obj, 'products':products})
 
 
 def forgot_password(request):

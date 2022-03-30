@@ -66,7 +66,7 @@
       {% if user is None and not user.is_authenticated  %}
 
       <li class="nav-item justify-content-between mr-3">
-        <a class="nav-link"  href="{% url 'register' %}"><i class="fa-solid fa-user-plus fa-xl"></i>&nbsp;</a>
+        <a class="nav-link"  href="{% url 'login' %}"><i class="fa-solid fa-user-plus fa-xl"></i>&nbsp;</a>
       </li>
 
       {% else %}
@@ -92,7 +92,7 @@
       {% endif %}
 
       <li class="nav-item justify-content-between">
-        <a class="nav-link justify-content-between" href="#"><i class="fa-solid fa-square-plus fa-2xl"></i>&nbsp;<span style="font-size: 20px;" >ad</span></a>
+        <a class="nav-link justify-content-between" href="{% url 'addProduct' %}" onclick="f1()"><i class="fa-solid fa-square-plus fa-2xl"></i>&nbsp;<span style="font-size: 20px;"  onclick="f1()">Ad</span></a>
       </li>
     </ul>
     
@@ -102,26 +102,24 @@
 
 <!-- <img src="static/grabit/images/images.jpg" alt=""> -->
     {% block content %}
-
-  
-    <div class="cardContainer inactive">
+      <div class="grid-container">
+      {% for item in products %}
+      <div class="cardContainer inactive">
       <div class="card">
         <div class="side front">
           
-          <img class="card-img-top" src="https://source.unsplash.com/random/500x400/?cycle">
+          <img class="card-img-top" src="{{ item.image1.url }}" style="width: 300px; height:300px;">
           <div class="info">
-            <h2>Product 1</h2>
-            <p>Price: $5000</p>
+            <h2>{{ item.item_name }}</h2>
+            <p>Price: Rs.{{ item.price }}</p>
           </div>
         </div>
         <div class="side back">
           <div class="info">
             <h2>At a glance</h2>
-            <ul>
-              <li>Manage backyard gates with ease with the 36" deck option</li>
-              <li>Your choice of deck sizes ranging from 36", 48", 52" and 60"</li>
-              <li>Updated hip bolstering offers superior operator comfort and positioning</li>
-            </ul>
+
+              <p>{{ item.item_description }}</p>
+        
             <div class="btn">
               <h4>Get this</h4>
               <svg fill="#333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/><path d="M0-.25h24v24H0z" fill="none"/></svg>
@@ -129,62 +127,18 @@
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="cardContainer inactive">
-      <div class="card">
-        <div class="side front">
-          <img class="card-img-top" src="https://source.unsplash.com/random/500x400/?fruit">
-    
-          <div class="info">
-            <h2>Product 2</h2>
-            <p>Price: $999</p>
-          </div>
-        </div>
-        <div class="side back">
-          <div class="info">
-            <h2>At a glance</h2>
-           
-            <ul>
-              <li>Your choice of VX4 decks ranging from 60 to 72 inches</li>
-              <li>The 37hp Vanguard BigBlock EFI makes short work out of big jobs enabling speeds up to 16mph</li>
-              <li>Massive 24" drive tires and 13" front caster tires</li>
-            </ul>
-            <div class="btn">
-              <h4>Get this</h4>
-              <svg fill="#333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/><path d="M0-.25h24v24H0z" fill="none"/></svg>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-    
-    <div class="cardContainer inactive">
-      <div class="card">
-        <div class="side front">
-          <img class="card-img-top" src="https://source.unsplash.com/random/500x400/?stationery">
-    
-          <div class="info">
-            <h2>Product 3</h2>
-            <p>Price: $250</p>
-          </div>
-        </div>
-        <div class="side back">
-          <div class="info">
-            <h2>At a glance</h2>
-            
-            <ul>
-              <li>V-Twin OHV Technology provides superior balance, low vibration, lower emissions, better fuel economy and higher HP/Weight</li>
-              <li>Advanced Debris Management keeps engine clean and cool for enhanced durability and performance</li>
-            </ul>
-            <div class="btn">
-              <h4>Get this</h4>
-              <svg fill="#333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/><path d="M0-.25h24v24H0z" fill="none"/></svg>
-            </div>
-          </div>
-        </div>
+      {% endfor %}
       </div>
-    </div>
+    
+  
+    
+    <script>
+      function f1(){
+        if(sessionStorage.getItem('status') == null)
+          alert("Please login first!");
+      }
+    </script>
 
     {% endblock content %}
 
