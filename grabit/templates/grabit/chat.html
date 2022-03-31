@@ -1,0 +1,71 @@
+{% extends "grabit/index.html" %}
+{% load static %}
+
+{% block cssBlock %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="static/grabit/chat/main.css">
+{% endblock cssBlock %}
+{% block content %}
+<div class="container">
+<div class="row clearfix">
+    <div class="col-lg-12">
+        <div class="card chat-app">
+            <div id="plist" class="people-list">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+
+                <ul class="list-unstyled chat-list mt-2 mb-0">
+                    {% for key, value in chats_received.items %}    
+                        <li class="clearfix"  onclick="myFunction()">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                            <div class="about">
+                                <div class="name" id="active_user">{{ value.username }}</div>
+                            </div>
+                            <form id="form-id" method="POST" action="/chat_">
+                                {% csrf_token %}
+
+                                    <input type="hidden" name="active_user_id" value="{{ key }}">
+                            </form> 
+                        </li>
+                    {% endfor %}
+                    {% for key, value in chats_sent.items %}
+                        <!-- {% if key not in chats_received.keys %} -->
+                            <li class="clearfix"  onclick="myFunction()">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                                <div class="about">
+                                    <div class="name" id="active_user">{{ value.username }}</div>
+                                </div> 
+
+                                <form id="form-id" method="POST" action="/chat_">
+                                    {% csrf_token %}
+
+                                    <input type="hidden"  name="active_user_id" value="{{ key }}"><br>
+                                </form>
+
+                            </li>
+                        <!-- {% endif %} -->
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+<script>
+var form = document.getElementById("form-id");
+function myFunction(){
+    form.submit();
+}
+</script>
+	
+{% endblock content %}
+
+{% block javascriptBlock %}	
+
+{% endblock javascriptBlock %}

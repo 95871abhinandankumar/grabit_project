@@ -1,0 +1,71 @@
+{% extends "grabit/index.html" %}
+{% load static %}
+
+{% block cssBlock %}
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="static/grabit/register/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="static/grabit/register/css/style.css">
+    {% endblock cssBlock %}
+
+{% block content %}
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="static/grabit/register/images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        {% csrf_tocken %}
+                        <h2 class="form-title">Create account</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="first_name" id="name" placeholder="Your First Name"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="last_name" id="name" placeholder="Your Last Name"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Roll-Number"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="name" id="name" placeholder="Your Room-Number"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-input" id="phone" name="phone"  pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Your Phone Number"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <h9 >Upload Your Photo</h9>
+                        <div class="form-group">
+                        <input type="file" class="form-input" name="image" placeholder="upload your image"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Have already an account ? <a href="{% url 'login' %}" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock content %}
+{% block javascriptBlock %}
+    <!-- JS -->
+    <script src="static/grabit/register/vendor/jquery/jquery.min.js"></script>
+    <script src="static/grabit/register/js/main.js"></script>
+    {% endblock javascriptBlock %}

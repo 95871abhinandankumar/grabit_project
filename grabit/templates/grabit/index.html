@@ -5,19 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block css1 %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% endblock css1 %}
     <script src="https://kit.fontawesome.com/b8b606b0e9.js" crossorigin="anonymous"></script>
-    <title>Grabit</title>
+    <title class="bg-danger" style="background-color:rgba(255, 140, 0, 0.849);">Grabit</title>
     {% block cssBlock %}
+    <link rel="stylesheet" href="static/grabit/homepage/style.css">
 
     {% endblock cssBlock %}
     
+    <style>
+      .circle {
+        border-radius: 50%;
+        width:30 px;
+        height: 30px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background: rgba(247, 127, 29, 0.849);
+        border: 3px rgba(247, 127, 29, 0.849);
+        color: #fff;
+        text-align: center;
+        font: 40px;
+      }
+    </style>
  
    
 </head>
 <body>
     <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ml-5"  href="{% url 'home' %}"><img src="static/grabit/images/price_tag_mirror.png" style=" height:70px;width:70px" alt="company logo"><span style="font-family: sans-serif; font-size:30px; font-weight: bold;">Grabit</span></a>
+  <a class="navbar-brand ml-5"  href="{% url 'home' %}"><img src="static/grabit/images/price_tag_mirror.png" style=" height:70px;width:70px" alt="company logo"><span style="font-family: sans-serif; font-size:30px; font-weight: bold;">Grab<span class="circle">it</span></span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -31,7 +48,7 @@
     <ul class="navbar-nav ml-auto mr-5" style="margin-right: 10%;">
 
         <li class="nav-item dropleft mr-3">
-        <a class="nav-link dropdown-toggle"  style="font-size: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle "  style="font-size: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -43,32 +60,48 @@
       </li>
 
       <li class="nav-item justify-content-between mr-3">
-        <a class="nav-link" href="#"><i class="fa-solid fa-comment fa-2xl"></i>&nbsp;&nbsp;</a>
+        <a class="nav-link" href="{% url 'chat' %}"><i class="fa-solid fa-comment fa-2xl"></i>&nbsp;&nbsp;</a>
       </li>
+
+      {% if user is None and not user.is_authenticated  %}
+
       <li class="nav-item justify-content-between mr-3">
-        <a class="nav-link"  href="{% url 'register' %}"><i class="fa-solid fa-user-plus fa-xl"></i>&nbsp;</a>
+        <a class="nav-link"  href="{% url 'login' %}"><i class="fa-solid fa-user-plus fa-xl"></i>&nbsp;</a>
       </li>
+
+      {% else %}
       <li class="nav-item dropdown justify-content-between dropleft mr-3">
         
         <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <img src="static/grabit/images/img_avatar.png" style="border-radius: 50%; height:30px;width:30px" alt="Avatar">
         </a>
         <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+<<<<<<< HEAD
           <div class="dropdown-item">Hello, User Name
           <a  href="{% url 'view_profile' %}"><br>View profile<br></a>
+=======
+          <div class="dropdown-item">Hello,<br>{{ user.first_name }}<br>
+          <a  href="{% url 'edit_profile' %}">View and edit profile</a>
+>>>>>>> e605549f17fd0a3bffb47b88d71931ac6e09eb80
           </div>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#"><i class="fa-solid fa-bullhorn" ></i>&nbsp;My ADS</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;Bought Packages & Billing</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#"><i class="fa fa-circle-question"></i>&nbsp;Help</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
+          <a class="dropdown-item" href="{% url 'setting' %}"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</a>
+          <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
         </div>
         
       </li>
+
+      {% endif %}
+
       <li class="nav-item justify-content-between">
+<<<<<<< HEAD
         <a class="nav-link justify-content-between" href="{% url 'submit_ad' %}"><i class="fa-solid fa-square-plus fa-2xl"></i>&nbsp;<span style="font-size: 20px;" >ad</span></a>
+=======
+        <a class="nav-link justify-content-between" href="{% url 'addProduct' %}" onclick="f1()"><i class="fa-solid fa-square-plus fa-2xl"></i>&nbsp;<span style="font-size: 20px;"  onclick="f1()">Ad</span></a>
+>>>>>>> e605549f17fd0a3bffb47b88d71931ac6e09eb80
       </li>
     </ul>
     
@@ -78,6 +111,45 @@
 
 <!-- <img src="static/grabit/images/images.jpg" alt=""> -->
     {% block content %}
+      <div class="grid-container" style="margin-top:55%">
+      {% for item in products %}
+      <div class="cardContainer inactive">
+      <div class="card">
+        <div class="side front">
+          
+          <img class="card-img-top" src="{{ item.image1.url }}" style="width: 300px; height:300px;">
+          <div class="info">
+            <h2>{{ item.item_name }}</h2>
+            <p>Price: Rs.{{ item.price }}</p>
+          </div>
+        </div>
+        <div class="side back">
+          <div class="info">
+            <h2>At a glance</h2>
+
+              <p>{{ item.item_description }}</p>
+
+            <a href="{% url 'productpage' item.pk %}">
+            <div class="btn">
+              <h4>Get this</h4>
+              <svg fill="#333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/><path d="M0-.25h24v24H0z" fill="none"/></svg>
+            </div>
+          </a>
+          </div>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+      </div>
+    
+  
+    
+    <script>
+      function f1(){
+        if(sessionStorage.getItem('status') == null)
+          alert("Please login first!");
+      }
+    </script>
 
     {% endblock content %}
 
@@ -87,8 +159,9 @@
   
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    {% block javascriptBlock %}
+      {% block javascriptBlock %}
+      
+      <script  src="static/grabit/homepage/script.js"></script>
       
     {% endblock javascriptBlock %}
 
