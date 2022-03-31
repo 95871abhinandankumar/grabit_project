@@ -102,7 +102,7 @@
 
 <!-- <img src="static/grabit/images/images.jpg" alt=""> -->
     {% block content %}
-      <div class="grid-container">
+      <div class="grid-container" style="margin-top:55%">
       {% for item in products %}
       <div class="cardContainer inactive">
       <div class="card">
@@ -119,11 +119,13 @@
             <h2>At a glance</h2>
 
               <p>{{ item.item_description }}</p>
-        
+
+            <a href="{% url 'productpage' item.pk %}">
             <div class="btn">
               <h4>Get this</h4>
               <svg fill="#333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/><path d="M0-.25h24v24H0z" fill="none"/></svg>
             </div>
+          </a>
           </div>
         </div>
       </div>

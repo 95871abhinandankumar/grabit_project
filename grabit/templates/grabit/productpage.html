@@ -14,52 +14,31 @@
 
     <div class="row">
       <div class="medium-5 columns">
-        <img class="thumbnail" id="main_pic" src="https://source.unsplash.com/random/500x400/?fruit">
+        <img class="thumbnail" id="main_pic" src="{{ item.image1.url }}">
         <div class="row small-up-4">
           <div class="column">
-            <img class="thumbnail" id="pic1"  onclick="changeImage(this.id)" src="https://source.unsplash.com/random/500x400/?fruit">
+            <img class="thumbnail" id="pic1"  onclick="changeImage(this.id)" src="{{ item.image1.url }}">
           </div>
           <div class="column">
-            <img class="thumbnail" id="pic2" onclick="changeImage(this.id)" src="https://source.unsplash.com/random/500x400/?mobile">
+            <img class="thumbnail" id="pic2" onclick="changeImage(this.id)" src="{{ item.image2.url }}">
           </div>
           <div class="column">
-            <img class="thumbnail" id="pic3" onclick="changeImage(this.id)" src="https://source.unsplash.com/random/500x400/?cutegirl">
+            <img class="thumbnail" id="pic3" onclick="changeImage(this.id)" src="{{ item.image3.url }}">
           </div>
           <div class="column">
-            <img class="thumbnail" id="pic4" onclick="changeImage(this.id)" src="https://source.unsplash.com/random/500x400/?hotgirl">
+            <img class="thumbnail" id="pic4" onclick="changeImage(this.id)" src="{{ item.image4.url }}">
           </div>
         </div>
       </div>
       <div class="medium-6 large-5 columns">
-        <h3>My Awesome Product</h3>
-        <p>Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus. In pellentesque faucibus vestibulum. Nulla at nulla justo, eget luctus tortor. Nulla facilisi. Duis aliquet egestas purus in.</p>
+        <h3>{{ item.item_name }}</h3>
+        <p>{{ item.item_description }}</p>
 
-        <label>Size
-        <select>
-          <option value="husker">Small</option>
-          <option value="starbuck">Medium</option>
-          <option value="hotdog">Large</option>
-          <option value="apollo">Yeti</option>
-        </select>
-        </label>
+        
 
-        <div class="row">
-          <div class="small-3 columns">
-            <label for="middle-label" class="middle">Quantity</label>
-          </div>
-          <div class="small-9 columns">
-            <input type="text" id="middle-label" placeholder="One fish two fish">
-          </div>
-        </div>
+        <a href="#" class="button large expanded">Chat With Seller</a>
 
-        <a href="#" class="button large expanded">Buy Now</a>
-
-        <div class="small secondary expanded button-group">
-            <a class="button">Facebook</a>
-            <a class="button">Twitter</a>
-            <a class="button">Yo</a>
-          </div>
-        </div>
+    
     </div>
 
     <div class="column row">

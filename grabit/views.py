@@ -26,7 +26,7 @@ import re
 
 # Create your views here.
 
-def productPage(request):
+def productPage(request, id):
     obj = None
     print(request.user.is_authenticated)
     if 'user_id' in request.session.keys():
@@ -37,11 +37,9 @@ def productPage(request):
         messages.Info(request, "Please login first before posting ad")
         return redirect('home')
     
-    
-    if request.method == 'POST':
-        pass
+    itemObj = Product.objects.get(pk=id)
 
-    return render(request, "grabit/productpage.html", {'user': obj})
+    return render(request, "grabit/productpage.html", {'user': obj, 'item':itemObj})
 
 def addProduct(request):
     obj = None
@@ -86,12 +84,13 @@ def addProduct(request):
         
         
         
-        try:
-            request.POST['radio1']
-            # print("For Sell")
+        
+        radioValue = request.POST['radio']
+        # print("For Sell")
+        print(radioValue)
+        if radioValue == 'sell':
             item.owner = obj.id
-        except Exception:
-            print("For buy")
+        else:
             item.buyer = obj.id
             
         item.save()
@@ -368,8 +367,8 @@ def userChat(request):
         else:
             usersChat_sent[ob.receiver_id]['messages'].append(ob)
         
-    print("User chat received : ", usersChat_recieved)
-    print("user chat sent ", usersChat_sent)
+    # print("User chat received : ", usersChat_recieved)
+    # print("user chat sent ", usersChat_sent)
         
     return render(request, 'grabit/chat.html', {'chats_received':usersChat_recieved, 'chats_sent':usersChat_sent ,'user': obj})
 
