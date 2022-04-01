@@ -11,6 +11,7 @@ import json
 import datetime
 import secrets
 import string
+from django.core.paginator import Paginator
 
 
 from django.contrib.auth import login, authenticate , logout 
@@ -132,9 +133,19 @@ def home(request):
     
     
     products = Product.objects.all()
+    p = Paginator(products, 6)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)
     
     
-    return render(request, "grabit/index.html", {'user': obj, 'products':products})
+    return render(request, "grabit/index.html", {'user': obj, 'page_obj':page_obj})
 
 
 def forgot_password(request):
@@ -201,7 +212,8 @@ def logIn(request):
                 
                 
                 request.session['user_id'] = obj.id
-                return render(request, "grabit/index.html" , {'user':obj})
+                # return render(request, "grabit/index.html" , {'user':obj})
+                return redirect('home')
                 
             
         except User.DoesNotExist:
