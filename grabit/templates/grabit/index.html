@@ -45,7 +45,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <form class="form-inline my-2 my-lg-0 ml-auto">
-      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     
@@ -85,7 +85,7 @@
           <a  href="{% url 'edit_profile' %}">View and edit profile</a>
           </div>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa-solid fa-bullhorn" ></i>&nbsp;My ADS</a>
+          <a class="dropdown-item" href="{% url 'my_ads' %}"><i class="fa-solid fa-bullhorn" ></i>&nbsp;My ADS</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#"><i class="fa fa-circle-question"></i>&nbsp;Help</a>
           <a class="dropdown-item" href="{% url 'setting' %}"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</a>
@@ -186,7 +186,7 @@
             </div>
         </div>
 
-
+    {% if page_obj != none %}
     <div class="row">
         {% for item in page_obj %}
         <div class="col-md-4">
@@ -206,6 +206,12 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="container">
+        <h1>Result not found</h1>
+    </div>
+            
+    {% endif %}
 
 
 

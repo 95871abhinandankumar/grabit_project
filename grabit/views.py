@@ -27,6 +27,35 @@ import re
 
 # Create your views here.
 
+
+def send_message(request):
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('home')
+    
+    
+    return render(request, "grabit/send_message.html", {'user': obj})
+
+
+def my_ad(request):
+    
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('home')
+    
+    
+    return render(request, "grabit/my_ad.html", {'user': obj})
+
 def productPage(request, id):
     obj = None
     print(request.user.is_authenticated)
@@ -131,8 +160,14 @@ def home(request):
         print("In user ........................")
         obj = User.objects.get(pk=request.session['user_id'])
     
-    
-    products = Product.objects.all()
+    query = request.GET.get('search')
+    if query:
+        try:
+            products = Product.objects.filter(item_description__icontains=query)
+        except Product.DoesNotExist:
+            return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
+    else:
+        products = Product.objects.all()
     p = Paginator(products, 6)
     page_number = request.GET.get('page')
     try:
