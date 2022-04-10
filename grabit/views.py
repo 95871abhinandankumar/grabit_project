@@ -28,7 +28,7 @@ import re
 # Create your views here.
 
 
-def send_message(request):
+def send_message(request, id):
     obj = None
     print(request.user.is_authenticated)
     if 'user_id' in request.session.keys():
@@ -37,6 +37,9 @@ def send_message(request):
     
     else:
         return redirect('home')
+    
+    
+    print(Product.objects.get(pk=id))
     
     
     return render(request, "grabit/send_message.html", {'user': obj})
@@ -420,9 +423,6 @@ def userChat(request):
     return render(request, 'grabit/chat.html', {'chats_received':usersChat_recieved, 'chats_sent':usersChat_sent ,'user': obj})
 
 def chat_with_someone(request):
-    
-    
-    
     obj = None
     if 'user_id' in request.session.keys():
         obj = User.objects.get(pk=request.session['user_id'])

@@ -34,11 +34,15 @@
         <h3>{{ item.item_name }}</h3>
         <p>{{ item.item_description }}</p>
 
+        <form id="form-id" method="POST" action="/chat_">
+            {% csrf_token %}
+
+            <input type="hidden"  name="active_user_id" value="{{ item.owner }}"><br>
+            <a onclick="myFunction()" class="button large expanded" >Chat With Seller</a>
+        </form>
+
+       
         
-
-        <a href="#" class="button large expanded" >Chat With Seller</a>
-
-    
     </div>
 
     <div class="column row">
@@ -136,6 +140,13 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
     <script>
+      var form = document.getElementById("form-id");
+      function myFunction(){
+          form.submit();
+      }
+
+
+
        function changeImage(id)
       {
         
