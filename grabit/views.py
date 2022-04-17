@@ -162,6 +162,9 @@ def home(request):
     if 'user_id' in request.session.keys():
         print("In user ........................")
         obj = User.objects.get(pk=request.session['user_id'])
+        
+        
+    
     
     query = request.GET.get('search')
     if query:
@@ -171,6 +174,19 @@ def home(request):
             return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
     else:
         products = Product.objects.all()
+        
+    sort_according = request.GET.get('sort')
+    if sort_according:
+        if sort_according == 'High to low price':
+            products = products.order_by("-price")
+        elif sort_according == 'low to high price':
+            products = products.order_by("price")
+        elif sort_according == "Older first":
+            products = products.order_by("-pk")
+            print(products[0].id)
+        elif sort_according == "Newer first":
+            products = products.order_by("pk")
+    
     p = Paginator(products, 6)
     page_number = request.GET.get('page')
     try:
@@ -269,6 +285,8 @@ def edit_profile(request):
     if obj is None:
         return HttpResponse("page does't exits")
     
+    
+    
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -285,7 +303,12 @@ def edit_profile(request):
         if room_number != "":
             obj.room_number = room_number 
         if phone_number != "":
-            obj.phone_number = phone_number  
+            obj.phone_number = phone_number 
+        
+        print(request.FILES)
+        if 'profile_pic' in request.FILES:
+            obj.image = request.FILES['profile_pic'] 
+            
         
         obj.save()
         

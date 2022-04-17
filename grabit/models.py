@@ -12,7 +12,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     image = models.ImageField(
-        upload_to='userImages', blank=True)
+        upload_to='usersImages', blank=True)
     roll_number = models.IntegerField()
     room_number = models.IntegerField()
     phone_number = PhoneNumberField(null=True)

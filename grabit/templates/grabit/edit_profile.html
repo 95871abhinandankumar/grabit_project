@@ -11,8 +11,22 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{ user.first_name }}</span><span class="text-black-50">{{ user.email_id }}</span><span> </span></div>
+            {% if user.image.url %}
+           
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{ user.image.url }}" onclick="changeProfile()">
+                
+              
+                <span class="font-weight-bold">{{ user.first_name }}</span><span class="text-black-50">{{ user.email_id }}</span><span> </span></div>
+            {% else %}
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" onclick="changeProfile()">
+                
+                <span class="font-weight-bold">{{ user.first_name }}</span><span class="text-black-50">{{ user.email_id }}</span><span> </span></div>
+            {% endif %}
+                <form>
+                <input id="updateImage" type="file" name="profile_pic" placeholder="change profile pic" required="" capture hidden onchange="form.submit()">
+                </form>
         </div>
+         
         <div class="col-md-9 border-right">
             <div class="p-3 py-5">
                 <form method="POST">
@@ -45,6 +59,14 @@
 </div>
 </div>
 </div>
+
+<script type="">
+    function changeProfile()
+    {
+        document.getElementById("updateImage").click();
+       
+    }
+</script>
 
 {% endblock content %}
 
