@@ -3,7 +3,7 @@
 
 # Subject: Software Engineering
 # <u>B.Tech CSE Semester-VI Project by Group-7</u>
-
+![IIITG LOGO](/grabit/static/grabit/images/iiitg.jpg)
 - [1901004]	Abhinandan Kumar
 - [1901049]	Ayushman Singh Chauhan
 - [1901091]	Krishnav Garg
