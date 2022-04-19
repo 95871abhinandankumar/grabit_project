@@ -58,7 +58,14 @@ def my_ad(request):
         return redirect('home')
     
     
-    return render(request, "grabit/my_ad.html", {'user': obj})
+    user_ads = list(Product.objects.raw('select * from grabit_Product where buyer = %s or owner = %s', [obj.id, obj.id]))
+    # print("in user ads : ", user_ads)
+    
+    
+    return render(request, "grabit/my_ad.html", {'user': obj, 'user_ads':user_ads})
+# end of my_ads views
+
+
 
 def productPage(request, id):
     obj = None

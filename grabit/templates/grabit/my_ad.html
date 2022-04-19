@@ -23,16 +23,14 @@
         <!-- <h2 class="u-align-center u-text u-text-default u-text-1">Your Active Ads</h2> -->
         <div class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-list u-list-1">
           <div class="u-repeater u-repeater-1">
+            {% for ads in user_ads %}
+
             <div class="u-container-style u-list-item u-repeater-item u-list-item-1">
               <div class="u-container-layout u-similar-container u-container-layout-1">
-                <img class="u-image u-image-round u-radius-10 u-image-1" src="static/grabit/my_ads/images/ga310abd0500d764c54e0a0456096220fd5f0f6ba86f2660958a95fa209c607151aa55cfc37f130a27444eb4098d76fea9bfd8fece30e0ad3c5a791e1a4b2366a_1280.jpg" alt="" data-image-width="1280" data-image-height="853">
-                <h3 class="u-align-center u-text u-text-default u-text-2">Product 1</h3>
-                <h4 class="u-align-center u-text u-text-default-lg u-text-default-xl u-text-3">Rs. 1000</h4>
+                <img class="u-image u-image-round u-radius-10 u-image-1" src="{{ ads.image1.url }}" alt="" data-image-width="1280" data-image-height="853">
+                <h3 class="u-align-center u-text u-text-default u-text-2">{{ ads.item_name }}</h3>
+                <h4 class="u-align-center u-text u-text-default-lg u-text-default-xl u-text-3">Rs. {{ ads.price }}</h4>
                 <div class="u-clearfix u-group-elements u-group-elements-1">
-                  <a href="https://nicepage.com/html-website-builder" class="u-active-none u-border-2 u-border-palette-1-base u-bottom-left-radius-0 u-bottom-right-radius-0 u-btn u-btn-rectangle u-button-style u-hover-none u-none u-radius-0 u-top-left-radius-0 u-top-right-radius-0 u-btn-1"><span class="u-icon u-text-palette-1-base"><svg class="u-svg-content" viewBox="0 0 52.966 52.966" x="0px" y="0px" style="width: 1em; height: 1em;"><circle style="fill:#57ABC1;" cx="21.983" cy="21" r="20"></circle><line style="fill:none;stroke:#556080;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" x1="35.437" y1="35.798" x2="50.983" y2="51.966"></line><path style="fill:#7CCBD8;" d="M3.002,27.253c0.848,2.582,2.24,5.018,4.167,7.146L35.382,6.186
-	c-2.129-1.928-4.564-3.319-7.146-4.167L3.002,27.253z"></path><path style="fill:#556080;" d="M21.983,42c-11.58,0-21-9.42-21-21s9.42-21,21-21s21,9.42,21,21S33.562,42,21.983,42z M21.983,2
-	c-10.477,0-19,8.523-19,19s8.523,19,19,19s19-8.523,19-19S32.459,2,21.983,2z"></path></svg><img></span>&nbsp;Preview
-                  </a>
                   <a href="https://nicepage.com/website-design" class="u-active-none u-border-2 u-border-hover-white u-border-palette-2-base u-btn u-button-style u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2"><span class="u-file-icon u-icon"><img src="static/grabit/my_ads/images/1828843.png" alt=""></span>&nbsp;Delete Ad
                   </a>
                   <a href="https://nicepage.com/html-templates" class="u-active-none u-border-active-palette-2-dark-1 u-border-hover-black u-border-none u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-custom-color-1 u-btn-3"><span class="u-icon"><svg class="u-svg-content" viewBox="0 0 53.255 53.255" x="0px" y="0px" style="width: 1em; height: 1em;"><path style="fill:#D75A4A;" d="M39.598,2.343c3.124-3.124,8.19-3.124,11.314,0s3.124,8.19,0,11.314L39.598,2.343z"></path><polygon style="fill:#ED8A19;" points="42.426,17.899 16.512,43.814 15.982,48.587 44.548,20.02 44.548,20.02 "></polygon><polygon style="fill:#ED8A19;" points="10.325,42.93 15.098,42.4 41.012,16.485 36.77,12.243 10.855,38.157 "></polygon><polygon style="fill:#ED8A19;" points="35.356,10.829 33.234,8.707 33.234,8.707 4.668,37.273 9.441,36.743 "></polygon><polygon style="fill:#C7CAC7;" points="48.79,15.778 48.79,15.778 50.912,13.657 39.598,2.343 37.476,4.465 37.477,4.465 "></polygon><polygon style="fill:#C7CAC7;" points="36.062,5.879 36.062,5.879 34.648,7.293 34.648,7.293 45.962,18.606 45.962,18.606 
@@ -59,6 +57,11 @@
                 <a href="https://nicepage.com/website-templates" class="u-border-1 u-border-active-palette-2-base u-border-hover-palette-1-base u-btn u-button-style u-none u-text-palette-1-base u-btn-4"> Click here if item is sold</a>
               </div>
             </div>
+            <div style="margin-top: 20px; margin-bottom:20px;">
+              <h1></h1>
+            </div>
+
+            {% endfor %}
             
             
           </div>
