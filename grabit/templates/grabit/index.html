@@ -56,11 +56,10 @@
           Category
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Stationery</a>
-          <a class="dropdown-item" href="#">Electronics</a>
-          <a class="dropdown-item" href="#">Sports & Fitness</a>
-          <a class="dropdown-item" href="#">Fashion</a>
-          <a class="dropdown-item" href="#">Grocery</a>
+          <a class="dropdown-item" href="{% url 'home1' 'Stationary' %}">Stationery</a>
+          <a class="dropdown-item" href="{% url 'home1' 'Electronics' %}">Electronics</a>
+          <a class="dropdown-item" href="{% url 'home1' 'Sports' %}">Sports & Fitness</a>
+          <a class="dropdown-item" href="{% url 'home1' 'Grocery' %}">Grocery</a>
         </div>
       </li>
 
@@ -138,21 +137,17 @@
     <div id="content" class="my-5">
         <div id="filterbar" class="collapse">
             <div class="box border-bottom">
-                <div class="form-group text-center">
-                    <div class="btn-group" data-toggle="buttons"> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="radio"> Reset </label> <label class="btn btn-success form-check-label active"> <input class="form-check-input" type="radio" checked> Apply </label> </div>
+               <form id="filter_form" method="POST">
+                 {% csrf_token %}
+                <div> 
+                  <label class="tick">To Buy <input name="toBuy" type="checkbox"  onclick="filterFunction(this)"  checked> <span class="check"></span> </label>
                 </div>
-                <div> <label class="tick">To Buy <input type="checkbox" checked="checked"> <span class="check"></span> </label> </div>
-                <div> <label class="tick">To Sell <input type="checkbox"> <span class="check"></span> </label> </div>
+                <div>
+                   <label class="tick">To Sell <input name="toSell" type="checkbox" onclick="filterFunction(this)" > <span class="check" ></span> </label> 
+                </div>
+                </form>
             </div>
-            <div class="box border-bottom">
-                <div class="box-label text-uppercase d-flex align-items-center">Seller Rating<button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#inner-box" aria-expanded="false" aria-controls="inner-box" id="out" onclick="outerFilter()"> <span class="fas fa-plus"></span> </button> </div>
-                <div id="inner-box" class="collapse mt-2 mr-1">
-                    <div class="my-1"> <label class="tick">4 star & above <input type="checkbox" checked="checked"> <span class="check"></span> </label> </div>
-                    <div class="my-1"> <label class="tick">3 star & above <input type="checkbox"> <span class="check"></span> </label> </div>
-                    <div class="my-1"> <label class="tick">2 star & above <input type="checkbox"> <span class="check"></span> </label> </div>
-                    <div class="my-1"> <label class="tick">1 star & above <input type="checkbox"> <span class="check"></span> </label> </div>
-                    </div>
-            </div>
+      
            
 
             
@@ -162,10 +157,10 @@
     <div class="row">
         {% for item in page_obj %}
         <div class="col-md-4">
-            <figure class="card card-product-grid card-lg"> <a href="#" class="img-wrap" data-abc="true"><img src="{{ item.image1.url }}" class="ml-auto mr-auto" style="height:200px;width:225px;"></a>
+            <figure class="card card-product-grid card-lg"> <a href="{% url 'productpage' item.id %}" class="img-wrap" data-abc="true"><img src="{{ item.image1.url }}" class="ml-auto mr-auto" style="height:200px;width:225px;"></a>
                 <figcaption class="info-wrap">
                     <div class="row">
-                        <div class="col-md-8"> <a href="#" class="title" data-abc="true">{{ item.item_name }}</a> </div>
+                        <div class="col-md-8"> <a href="{% url 'productpage' item.id %}" class="title" data-abc="true">{{ item.item_name }}</a> </div>
                         <div class="col-md-4">
                             <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
                         </div>
@@ -219,6 +214,50 @@
         });
           
         }
+
+        function filterFunction(event){
+          save();
+          form = document.getElementById("filter_form");
+          function handleForm(event) { event.preventDefault(); } 
+          form.submit();
+          load();
+          
+          
+       
+        
+          
+        }
+
+        function myfunction(e){
+          alert(e.checked)
+        }
+
+        var i;
+
+        checkboxes = document.querySelectorAll('input[type=checkbox]');
+        function save() {
+
+            for (i = 0; i < checkboxes.length; i++) {
+
+            localStorage.setItem(checkboxes[i].value,checkboxes[i].checked);
+
+            }
+
+        }
+
+
+        function load() {
+
+          for (i = 0; i < checkboxes.length; i++) {
+
+          checkboxes[i].checked = localStorage.getItem(checkboxes[i].value) === 'true' ? true:false;
+
+          }
+
+        }
+
+ 
+
 
     </script>
 

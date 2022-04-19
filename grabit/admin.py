@@ -4,7 +4,7 @@ from .models import Advertisement, Product, User, UserChat
 # Register your models here.
 @admin.register(User)
 class UsersAdmin(admin.ModelAdmin):
-    list_display = ('id','first_name','last_name', 'roll_number', 'room_number', 'phone_number', 'email_id', 'password_field' )
+    list_display = ('id', 'image','first_name','last_name', 'roll_number', 'room_number', 'phone_number', 'email_id', 'password_field' )
     
 @admin.register(UserChat)
 class Chat(admin.ModelAdmin):

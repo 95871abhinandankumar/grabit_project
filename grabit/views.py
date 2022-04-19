@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 from distutils.log import error
 from email import message
+from logging import exception
 from pyexpat.errors import messages
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
@@ -154,6 +155,74 @@ def logout_function(request):
     except KeyError:
         pass
     return redirect('home')
+
+
+
+def home1(request, catogery):
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+        
+        
+    
+    
+    query = request.GET.get('search')
+    if query:
+        try:
+            products = Product.objects.filter(item_description__icontains=query, category=catogery)
+        except Product.DoesNotExist:
+            return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
+    else:
+        products = Product.objects.filter(category=catogery)
+        
+    sort_according = request.GET.get('sort')
+    if sort_according:
+        if sort_according == 'High to low price':
+            products = products.order_by("-price")
+        elif sort_according == 'low to high price':
+            products = products.order_by("price")
+        elif sort_according == "Older first":
+            products = products.order_by("-pk")
+            print(products[0].id)
+        elif sort_according == "Newer first":
+            products = products.order_by("pk")
+    
+    
+    if request.method == 'POST':
+        
+        try:
+            buyOption = request.POST['toBuy']
+            print(buyOption)
+        except:
+            pass
+        
+        try:    
+            sellOption = request.POST['toSell']
+            print(sellOption)
+        except :
+            pass
+        
+    
+    
+    
+    
+    p = Paginator(products, 6)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)
+    
+    
+    return render(request, "grabit/index.html", {'user': obj, 'page_obj':page_obj})
+
+
     
 
 def home(request):
@@ -186,6 +255,25 @@ def home(request):
             print(products[0].id)
         elif sort_according == "Newer first":
             products = products.order_by("pk")
+    
+    
+    if request.method == 'POST':
+        
+        try:
+            buyOption = request.POST['toBuy']
+            print(buyOption)
+        except:
+            pass
+        
+        try:    
+            sellOption = request.POST['toSell']
+            print(sellOption)
+        except :
+            pass
+        
+    
+    
+    
     
     p = Paginator(products, 6)
     page_number = request.GET.get('page')
@@ -311,6 +399,8 @@ def edit_profile(request):
             
         
         obj.save()
+    
+    print(obj.image)
         
         
         

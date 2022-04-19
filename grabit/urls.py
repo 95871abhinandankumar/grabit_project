@@ -4,6 +4,7 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
+    path('edit_profile', views.edit_profile, name='edit_profile'),
     path('', views.home, name='home'),
     path('add_product', views.addProduct, name='addProduct'),
     path('my_ads', views.my_ad, name='my_ads'),
@@ -16,7 +17,7 @@ urlpatterns = [
     path('logout', views.logout_function, name='logout'),
     path('register', views.register, name='register'),
     path('login', views.logIn, name='login'),
-    path('edit_profile', views.edit_profile, name='edit_profile'),
     path('activate/<uidb64>/<token>/',  
         views.activate, name='activate'),  
+    path('<str:catogery>', views.home1, name='home1'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
