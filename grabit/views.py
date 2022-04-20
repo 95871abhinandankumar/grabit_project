@@ -29,6 +29,40 @@ import re
 # Create your views here.
 
 
+def help(request):
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('login')
+    
+    
+    if request.method == 'GET':
+        fname = request.GET.get('first-name', None)
+        lname = request.GET.get('last-name', None)
+        email = request.GET.get('email', None)
+        message = request.GET.get('message', None)
+        phone = request.GET.get('phone', None)
+        try:
+             
+            mail_subject = fname + " " + lname  
+            message = "Sender first-name is {fname} and last-name is {lname}. His phone number and Email-id is {phone} and {email}. Message : {message}".format(fname=fname, lname=lname, phone=phone, email=email, message=message) 
+            to_email = 'grabitgrabit33@gmail.com' 
+            email = EmailMessage(  
+                        mail_subject, message, to=[to_email]  
+            )  
+            email.send()
+        except:
+            pass
+        
+
+    return render(request, "grabit/help.html", {'user': obj})
+
+
+
 def send_message(request, id):
     obj = None
     print(request.user.is_authenticated)
@@ -45,6 +79,26 @@ def send_message(request, id):
     
     return render(request, "grabit/send_message.html", {'user': obj})
 
+
+
+def delete_ad(request, id):
+    
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('login')
+ 
+    try :
+        Product.objects.get(pk=id).delete()
+        Advertisement.objects.get(product_id=id).delete()
+    except:
+        pass
+    
+    return redirect('home')
 
 # edit_ad view function
 
@@ -203,13 +257,25 @@ def home1(request, catogery):
     
     
     query = request.GET.get('search')
-    if query:
-        try:
-            products = Product.objects.filter(item_description__icontains=query, category=catogery)
-        except Product.DoesNotExist:
-            return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
-    else:
-        products = Product.objects.filter(category=catogery)
+    
+    if catogery=='buyer_ads':
+        if query:
+            try:
+                products = Product.objects.filter(item_description__icontains=query, owner=None)
+            except Product.DoesNotExist:
+                return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
+        else:
+            products = Product.objects.filter(owner=None)
+    else : 
+        if query:
+            try:
+                products = Product.objects.filter(item_description__icontains=query, category=catogery, buyer=None)
+            except Product.DoesNotExist:
+                return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
+        else:
+            products = Product.objects.filter(category=catogery, buyer=None)
+    
+    
         
     sort_according = request.GET.get('sort')
     if sort_according:
@@ -222,25 +288,6 @@ def home1(request, catogery):
             print(products[0].id)
         elif sort_according == "Newer first":
             products = products.order_by("pk")
-    
-    
-    if request.method == 'POST':
-        
-        try:
-            buyOption = request.POST['toBuy']
-            print(buyOption)
-        except:
-            pass
-        
-        try:    
-            sellOption = request.POST['toSell']
-            print(sellOption)
-        except :
-            pass
-        
-    
-    
-    
     
     p = Paginator(products, 6)
     page_number = request.GET.get('page')
@@ -272,11 +319,11 @@ def home(request):
     query = request.GET.get('search')
     if query:
         try:
-            products = Product.objects.filter(item_description__icontains=query)
+            products = Product.objects.filter(item_description__icontains=query, buyer=None)
         except Product.DoesNotExist:
             return render(request, "grabit/index.html", {'user': obj, 'page_obj':None})
     else:
-        products = Product.objects.all()
+        products = Product.objects.filter(buyer=None)
         
     sort_according = request.GET.get('sort')
     if sort_according:
@@ -289,24 +336,7 @@ def home(request):
             print(products[0].id)
         elif sort_according == "Newer first":
             products = products.order_by("pk")
-    
-    
-    if request.method == 'POST':
-        
-        try:
-            buyOption = request.POST['toBuy']
-            print(buyOption)
-        except:
-            pass
-        
-        try:    
-            sellOption = request.POST['toSell']
-            print(sellOption)
-        except :
-            pass
-        
-    
-    
+
     
     
     p = Paginator(products, 6)

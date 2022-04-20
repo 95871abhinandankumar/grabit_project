@@ -60,6 +60,9 @@
           <a class="dropdown-item" href="{% url 'home1' 'Electronics' %}">Electronics</a>
           <a class="dropdown-item" href="{% url 'home1' 'Sports' %}">Sports & Fitness</a>
           <a class="dropdown-item" href="{% url 'home1' 'Grocery' %}">Grocery</a>
+          <div><hr class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'home1' 'buyer_ads' %}">Ads from Buyer</a>
+
         </div>
       </li>
 
@@ -90,7 +93,7 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{% url 'my_ads' %}"><i class="fa-solid fa-bullhorn" ></i>&nbsp;My ADS</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-circle-question"></i>&nbsp;Help</a>
+          <a class="dropdown-item" href="{% url 'help' %}"><i class="fa fa-circle-question"></i>&nbsp;Help</a>
           <a class="dropdown-item" href="{% url 'setting' %}"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp;Settings</a>
           <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a>
         </div>
@@ -112,7 +115,7 @@
     {% block content %}
 
     <div class="container">
-    <div class="bg-white rounded d-flex align-items-center justify-content-between" id="header"> <button class="btn btn-hide text-uppercase" type="button" data-toggle="collapse" data-target="#filterbar" aria-expanded="false" aria-controls="filterbar" id="filter-btn" onclick="changeBtnTxt()"> <span class="fas fa-angle-left" id="filter-angle"></span> <span id="btn-txt">Hide filters</span> </button>
+    <div class="bg-white rounded d-flex align-items-center justify-content-between" id="header">
         
                 <ul class="navbar-nav d-lg-flex align-items-lg-center">
                     <li class="nav-item active">
@@ -135,23 +138,7 @@
         
     </div>
     <div id="content" class="my-5">
-        <div id="filterbar" class="collapse">
-            <div class="box border-bottom">
-               <form id="filter_form" method="POST">
-                 {% csrf_token %}
-                <div> 
-                  <label class="tick">To Buy <input name="toBuy" type="checkbox"  onclick="filterFunction(this)"  checked> <span class="check"></span> </label>
-                </div>
-                <div>
-                   <label class="tick">To Sell <input name="toSell" type="checkbox" onclick="filterFunction(this)" > <span class="check" ></span> </label> 
-                </div>
-                </form>
-            </div>
-      
-           
-
-            
-        </div>
+        
 
     {% if page_obj != none %}
     <div class="row">
@@ -163,7 +150,7 @@
                     <div class="row">
                         <div class="col-md-8"> <a href="{% url 'productpage' item.id %}" class="title" data-abc="true">{{ item.item_name }}</a> </div>
                         <div class="col-md-4">
-                            <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                            <!-- <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div> -->
                         </div>
                     </div>
                 </figcaption>
