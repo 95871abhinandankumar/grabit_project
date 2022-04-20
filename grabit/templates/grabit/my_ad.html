@@ -24,7 +24,7 @@
         <div class="u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-list u-list-1">
           <div class="u-repeater u-repeater-1">
             {% for ads in user_ads %}
-
+            {% if ads.item_availablity %}
             <div class="u-container-style u-list-item u-repeater-item u-list-item-1">
               <div class="u-container-layout u-similar-container u-container-layout-1">
                 <img class="u-image u-image-round u-radius-10 u-image-1" src="{{ ads.image1.url }}" alt="" data-image-width="1280" data-image-height="853">
@@ -33,7 +33,7 @@
                 <div class="u-clearfix u-group-elements u-group-elements-1">
                   <a href="https://nicepage.com/website-design" class="u-active-none u-border-2 u-border-hover-white u-border-palette-2-base u-btn u-button-style u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2"><span class="u-file-icon u-icon"><img src="static/grabit/my_ads/images/1828843.png" alt=""></span>&nbsp;Delete Ad
                   </a>
-                  <a href="https://nicepage.com/html-templates" class="u-active-none u-border-active-palette-2-dark-1 u-border-hover-black u-border-none u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-custom-color-1 u-btn-3"><span class="u-icon"><svg class="u-svg-content" viewBox="0 0 53.255 53.255" x="0px" y="0px" style="width: 1em; height: 1em;"><path style="fill:#D75A4A;" d="M39.598,2.343c3.124-3.124,8.19-3.124,11.314,0s3.124,8.19,0,11.314L39.598,2.343z"></path><polygon style="fill:#ED8A19;" points="42.426,17.899 16.512,43.814 15.982,48.587 44.548,20.02 44.548,20.02 "></polygon><polygon style="fill:#ED8A19;" points="10.325,42.93 15.098,42.4 41.012,16.485 36.77,12.243 10.855,38.157 "></polygon><polygon style="fill:#ED8A19;" points="35.356,10.829 33.234,8.707 33.234,8.707 4.668,37.273 9.441,36.743 "></polygon><polygon style="fill:#C7CAC7;" points="48.79,15.778 48.79,15.778 50.912,13.657 39.598,2.343 37.476,4.465 37.477,4.465 "></polygon><polygon style="fill:#C7CAC7;" points="36.062,5.879 36.062,5.879 34.648,7.293 34.648,7.293 45.962,18.606 45.962,18.606 
+                  <a href="{% url 'edit_ad' ads.id %}" class="u-active-none u-border-active-palette-2-dark-1 u-border-hover-black u-border-none u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-custom-color-1 u-btn-3"><span class="u-icon"><svg class="u-svg-content" viewBox="0 0 53.255 53.255" x="0px" y="0px" style="width: 1em; height: 1em;"><path style="fill:#D75A4A;" d="M39.598,2.343c3.124-3.124,8.19-3.124,11.314,0s3.124,8.19,0,11.314L39.598,2.343z"></path><polygon style="fill:#ED8A19;" points="42.426,17.899 16.512,43.814 15.982,48.587 44.548,20.02 44.548,20.02 "></polygon><polygon style="fill:#ED8A19;" points="10.325,42.93 15.098,42.4 41.012,16.485 36.77,12.243 10.855,38.157 "></polygon><polygon style="fill:#ED8A19;" points="35.356,10.829 33.234,8.707 33.234,8.707 4.668,37.273 9.441,36.743 "></polygon><polygon style="fill:#C7CAC7;" points="48.79,15.778 48.79,15.778 50.912,13.657 39.598,2.343 37.476,4.465 37.477,4.465 "></polygon><polygon style="fill:#C7CAC7;" points="36.062,5.879 36.062,5.879 34.648,7.293 34.648,7.293 45.962,18.606 45.962,18.606 
 	47.376,17.192 47.376,17.192 "></polygon><path style="fill:#FBCE9D;" d="M14.424,44.488l-5.122,0.569c-0.036,0.004-0.073,0.006-0.109,0.006c0,0-0.001,0-0.001,0H9.192H9.192
 	c-0.001,0-0.001,0-0.001,0c-0.036,0-0.073-0.002-0.109-0.006c-0.039-0.004-0.071-0.026-0.108-0.035
 	c-0.072-0.017-0.141-0.035-0.207-0.067c-0.05-0.024-0.093-0.053-0.138-0.084c-0.057-0.04-0.109-0.083-0.157-0.134
@@ -60,7 +60,7 @@
             <div style="margin-top: 20px; margin-bottom:20px;">
               <h1></h1>
             </div>
-
+            {% endif %}
             {% endfor %}
             
             

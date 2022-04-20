@@ -1,0 +1,79 @@
+{% extends "grabit/index.html" %}
+{% load static %}
+
+{% block cssBlock %}
+
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Main CSS-->
+    <link href="{% static 'grabit/edit_ad/css/main.css' %}" rel="stylesheet">
+{% endblock cssBlock %}
+{% block content %}
+
+    <div class="page-wrapper p-t-100 p-b-50">
+        <div class="wrapper wrapper--w900">
+            <div class="card card-6">
+                <div class="card-heading">
+                    <h2 class="title" style="color: black;">{{ ads.item_name }}</h2>
+                </div>
+                <div class="card-body">
+                    <form  class="" id="ad_form" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="name">Price</div>
+                            <div class="value">
+                                <input class="input--style-6" type="text" name="item_price" value="{{ ads.price }}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Item sold (Check in, If item is sold)</div>
+                            <div class="value">
+                                
+                                <input type="checkbox" name="availability">
+                                
+
+                            </div>
+                            
+                           
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Item description</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <textarea class="textarea--style-6" name="item_description">{{ ads.item_description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button class="btn btn--radius-2 btn--blue-2" onclick="submit_form()" type="submit">Update</button>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+  {% endblock content %}  
+ {% block javascriptBlock %}
+
+     <script>
+        function submit_form()
+        {
+            
+            document.getElementById("ad_form")[0].submit();
+        }
+    </script>
+
+    <!-- Jquery JS-->
+    <script src="{% static 'grabit/edit_ad/vendor/jquery/jquery.min.js' %}"></script>
+
+
+    <!-- Main JS-->
+    <script src="{% static 'grabit/edit_ad/js/global.js' %}"></script>
+
+{% endblock javascriptBlock %}

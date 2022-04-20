@@ -38,7 +38,7 @@
 </head>
 <body>
     <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ml-5"  href="{% url 'home' %}"><img src="static/grabit/images/price_tag_mirror.png" style=" height:70px;width:70px" alt="company logo"><span style="font-family: sans-serif; font-size:30px; font-weight: bold;">Grab<span class="circle">it</span></span></a>
+  <a class="navbar-brand ml-5"  href="{% url 'home' %}"><img src="{% static 'grabit/images/price_tag_mirror.png' %}" style=" height:70px;width:70px" alt="company logo"><span style="font-family: sans-serif; font-size:30px; font-weight: bold;">Grab<span class="circle">it</span></span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -156,6 +156,7 @@
     {% if page_obj != none %}
     <div class="row">
         {% for item in page_obj %}
+        {% if item.item_availablity %}
         <div class="col-md-4">
             <figure class="card card-product-grid card-lg"> <a href="{% url 'productpage' item.id %}" class="img-wrap" data-abc="true"><img src="{{ item.image1.url }}" class="ml-auto mr-auto" style="height:200px;width:225px;"></a>
                 <figcaption class="info-wrap">
@@ -171,6 +172,7 @@
                 </div>
             </figure>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
     {% else %}

@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('add_product', views.addProduct, name='addProduct'),
     path('my_ads', views.my_ad, name='my_ads'),
+    path('<int:id>/edit_ad', views.edit_ad, name='edit_ad'),
     path('<int:id>/send_message', views.send_message, name='send_message'),
     path('<int:id>/product_page', views.productPage, name='productpage'),
     path('setting', views.changePassword, name='setting'),

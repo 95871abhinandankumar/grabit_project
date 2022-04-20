@@ -46,6 +46,34 @@ def send_message(request, id):
     return render(request, "grabit/send_message.html", {'user': obj})
 
 
+# edit_ad view function
+
+def edit_ad(request, id):
+    
+    obj = None
+    print(request.user.is_authenticated)
+    if 'user_id' in request.session.keys():
+        print("In user ........................")
+        obj = User.objects.get(pk=request.session['user_id'])
+    
+    else:
+        return redirect('login')
+ 
+    ads = Product.objects.get(pk=id)
+    
+    if request.method == 'POST':
+        ads.price = request.POST['item_price']
+        if request.POST.get('availability', False) == "on":
+            ads.item_availablity = False
+        
+        ads.item_description = request.POST['item_description']
+        ads.save()
+    
+    return render(request, "grabit/edit_ad.html", {'user': obj, 'ads':ads}) 
+
+# end of edit_ad view function   
+
+
 def my_ad(request):
     
     obj = None
@@ -55,7 +83,7 @@ def my_ad(request):
         obj = User.objects.get(pk=request.session['user_id'])
     
     else:
-        return redirect('home')
+        return redirect('login')
     
     
     user_ads = list(Product.objects.raw('select * from grabit_Product where buyer = %s or owner = %s', [obj.id, obj.id]))
@@ -75,8 +103,7 @@ def productPage(request, id):
         obj = User.objects.get(pk=request.session['user_id'])
     
     else:
-        messages.Info(request, "Please login first before posting ad")
-        return redirect('home')
+        return redirect('login')
     
     itemObj = Product.objects.get(pk=id)
 
@@ -90,7 +117,7 @@ def addProduct(request):
         obj = User.objects.get(pk=request.session['user_id'])
     
     else:
-        return redirect('home')
+        return redirect('login')
     
     if request.method == 'POST':
         item_name = request.POST['adTitle']
