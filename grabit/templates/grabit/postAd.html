@@ -1,0 +1,225 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+        body {
+            /* background: url("/static/background1.jpeg") no-repeat center center fixed; */
+            background-color: rgb(245, 255, 249);
+        }
+    </style>
+    <title> Post Ad</title>
+
+
+</head>
+
+<body bgcolor="#AED6F1">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">GrabIt</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item   ">
+                    <a class="nav-link active" href="/"><i class="fa fa-home"></i> Home <span
+                            class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item   ">
+                    <a class="nav-link active" href="/about/">About</a>
+                </li>
+
+                <li class="nav-item    ">
+                    <a class="nav-link active" href="/contact/">Contact</a>
+                </li>
+
+            </ul>
+
+            <div class="ml-auto form-inline ">
+                <form method="get" action="/search/" class="form-inline my-2 my-lg-0 mx-3">
+                    <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" name="query"
+                        id="query">
+                    <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search</button>
+                </form>
+
+
+                <ul class="navbar-nav mr-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href='#' id="navbarDropdown" role="button"
+                            data-toggle="dropdown"> Welcome Ayushman</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">My Products</a>
+                            <a class="dropdown-item" href="#">Profile Settings</a>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+
+
+    <div class="container my-3 col-8" style="background-color : #F5F9F8 ;">
+        <h3>Add Product Details</h3><br>
+        <form action="/seller/addItem/" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="token">
+            <p>
+                <label for="category">Category:</label>
+                <select name="category" class="form-control" maxlength="20" id="category">
+                    <option value="Room_Essential">Room Essential</option>
+
+                    <option value="Cycle">Cycle</option>
+
+                    <option value="Books">Books</option>
+
+                    <option value="Electronics">Electronics</option>
+
+                    <option value="Stationery">Stationery</option>
+
+                    <option value="Sports_Item">Sports Item</option>
+
+                    <option value="Other">Other</option>
+
+                </select>
+
+            </p>
+
+
+            <p>
+                <label for="product_name">Product name:</label>
+                <input type="text" name="item_name" class="form-control" maxlength="30" required id="product_name">
+
+
+            </p>
+
+
+            <p>
+                <label for="id_price">Price:</label>
+                <input type="number" name="price" class="form-control" min="0" required id="id_price">
+
+
+            </p>
+
+
+            <p>
+                <label for="id_model_year">Model year:</label>
+                <input type="text" name="model_year" class="form-control" maxlength="4" required id="id_model_year">
+
+
+            </p>
+            <p>
+                <label for="id_condition">Condition:</label>
+                <select name="condition" class="form-control" id="id_condition">
+                    <option value="Stationery">Excellent</option>
+
+                    <option value="Sports_Item">Good</option>
+
+                    <option value="Other">Bad</option>
+
+                </select>
+
+            </p>
+
+
+            <p>
+                <label for="id_photo">Image:</label>
+                <input type="file" name="photo" accept="image/*" required id="id_photo">
+
+
+            </p>
+
+
+            <p>
+                <label for="id_description">Description:</label>
+                <textarea name="description" cols="40" rows="10" class="form-control" required id="id_description">
+</textarea>
+
+            </p>
+
+            <p class="post-terms">By clicking <strong>Submit Button</strong> you accept our <a href="terms.html"
+                    target="_blank">Terms of Use </a> and <a href="privacy.html" target="_blank">Privacy Policy</a></p>
+
+            <input type="submit" value="Submit" class="btn btn-secondary"><br><br>
+        </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <br><br><br><br><br>
+    <footer class="bg-dark text-center text-white " id="footer">
+        <!-- Grid container -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container p-4 pb-0 mt-8">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button">
+                    <i class="fa fa-facebook-f"></i>
+                </a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button">
+                    <i class="fa fa-twitter"></i>
+                </a>
+
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button">
+                    <i class="fa fa-google"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button">
+                    <i class="fa fa-instagram"></i>
+                </a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/" role="button">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.github.com/" role="button">
+                    <i class="fa fa-github"></i>
+                </a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            Grabit @ 2022
+        </div>
+        <!-- Copyright -->
+    </footer>
+</body>
+
+</html>
