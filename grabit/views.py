@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 from distutils.log import error
 from email import message
+from itertools import product
 from logging import exception
 from pyexpat.errors import messages
 from django.dispatch import receiver
@@ -289,7 +290,20 @@ def home1(request, catogery):
         elif sort_according == "Newer first":
             products = products.order_by("pk")
     
-    p = Paginator(products, 6)
+        products = list(products)
+    
+    product_objs = []
+    for item in products:
+        # print("today date", datetime.date.today())
+        # print("product date", Advertisement.objects.get(product_id=item.id).ad_date_time.date())
+        string1 = str(datetime.date.today() - Advertisement.objects.get(product_id=item.id).ad_date_time.date())
+        s1 = string1.split(" ")[0]
+        if int(s1) <= 30:
+            product_objs.append({'item':item, 'item_ad':Advertisement.objects.get(product_id=item.id)})
+    
+    
+    
+    p = Paginator(product_objs, 6)
     page_number = request.GET.get('page')
     try:
         page_obj = p.get_page(page_number)  # returns the desired page object
@@ -301,7 +315,7 @@ def home1(request, catogery):
         page_obj = p.page(p.num_pages)
     
     
-    return render(request, "grabit/index.html", {'user': obj, 'page_obj':page_obj})
+    return render(request, "grabit/index.html", {'user': obj, 'page_obj':page_obj.object_list})
 
 
     
@@ -338,8 +352,19 @@ def home(request):
             products = products.order_by("pk")
 
     
+    products = list(products)
     
-    p = Paginator(products, 6)
+    product_objs = []
+    for item in products:
+        # to show last 30 days product only
+        string1 = str(datetime.date.today() - Advertisement.objects.get(product_id=item.id).ad_date_time.date())
+        s1 = string1.split(" ")[0]
+        if int(s1) <= 30:
+            product_objs.append({'item':item, 'item_ad':Advertisement.objects.get(product_id=item.id)})
+    
+    
+    
+    p = Paginator(product_objs, 6)
     page_number = request.GET.get('page')
     try:
         page_obj = p.get_page(page_number)  # returns the desired page object
@@ -350,8 +375,11 @@ def home(request):
         # if page is empty then return last page
         page_obj = p.page(p.num_pages)
     
+    for ob in page_obj.object_list:
+        print("page obj", ob)
     
-    return render(request, "grabit/index.html", {'user': obj, 'page_obj':page_obj})
+    
+    return render(request, "grabit/index.html", {'user': obj, 'page_obj':page_obj.object_list})
 
 
 def forgot_password(request):

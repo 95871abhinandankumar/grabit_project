@@ -142,20 +142,20 @@
 
     {% if page_obj != none %}
     <div class="row">
-        {% for item in page_obj %}
-        {% if item.item_availablity %}
+        {% for p_obj in page_obj %}
+        {% if p_obj.item.item_availablity %}
         <div class="col-md-4">
-            <figure class="card card-product-grid card-lg"> <a href="{% url 'productpage' item.id %}" class="img-wrap" data-abc="true"><img src="{{ item.image1.url }}" class="ml-auto mr-auto" style="height:200px;width:225px;"></a>
+            <figure class="card card-product-grid card-lg"> <a href="{% url 'productpage' p_obj.item.id %}" class="img-wrap" data-abc="true"><img src="{{ p_obj.item.image1.url }}" class="ml-auto mr-auto" style="height:200px;width:225px;"></a>
                 <figcaption class="info-wrap">
                     <div class="row">
-                        <div class="col-md-8"> <a href="{% url 'productpage' item.id %}" class="title" data-abc="true">{{ item.item_name }}</a> </div>
+                        <div class="col-md-8"> <a href="{% url 'productpage' p_obj.item.id %}" class="title" data-abc="true">{{ p_obj.item.item_name }}</a> </div>
                         <div class="col-md-4">
                             <!-- <div class="rating text-right"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div> -->
                         </div>
                     </div>
                 </figcaption>
-                <div class="bottom-wrap"> <a href="{% url 'productpage' item.id %}" class="btn btn-primary float-right" data-abc="true"> Buy now </a>
-                    <div class="price-wrap"> <span class="price h5">Rs.{{ item.price }}</span> <br> <small class="text-success">Free shipping</small> </div>
+                <div class="bottom-wrap"> <a href="{% url 'productpage' p_obj.item.id %}" class="btn btn-primary float-right" data-abc="true"> Buy now </a>
+                    <div class="price-wrap"> <span class="price h5">Rs.{{ p_obj.item.price }}</span> <br> <small class="text-success">{{p_obj.item_ad.ad_date_time}}</small> </div>
                 </div>
             </figure>
         </div>

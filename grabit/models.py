@@ -57,6 +57,10 @@ class Advertisement(models.Model):
     choice_mark = models.BooleanField(default=False)
     ad_likes = models.IntegerField()
     ad_dislikes = models.IntegerField()
+
+# class Likes(models.Model):
+#     user_id = models.IntegerField(null=False)
+#     item_id = models.IntegerField(null=False)
     
     
     
