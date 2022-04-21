@@ -157,6 +157,13 @@
                 <div class="bottom-wrap"> <a href="{% url 'productpage' p_obj.item.id %}" class="btn btn-primary float-right" data-abc="true"> Buy now </a>
                     <div class="price-wrap"> <span class="price h5">Rs.{{ p_obj.item.price }}</span> <br> <small class="text-success">{{p_obj.item_ad.ad_date_time}}</small> </div>
                 </div>
+                <div class="bottom-wrap">
+                   <button type="button" onclick="increase_like()" class="btn btn-default btn-sm" style="float:right">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                      </button>
+                    <div class="price-wrap"> <span id="total_like" class="price h8">10</span> likes</div>
+                </div>
+                
             </figure>
         </div>
         {% endif %}
@@ -243,6 +250,11 @@
 
           }
 
+        }
+
+        function increase_like()
+        {
+          document.getElementById('total_like').value = document.getElementById('total_like').value + 1;
         }
 
  
