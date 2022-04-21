@@ -282,7 +282,7 @@ def home1(request, catogery):
     if sort_according:
         if sort_according == 'High to low price':
             products = products.order_by("-price")
-        elif sort_according == 'low to high price':
+        elif sort_according == 'Low to high price':
             products = products.order_by("price")
         elif sort_according == "Older first":
             products = products.order_by("-pk")
@@ -297,7 +297,7 @@ def home1(request, catogery):
         # print("today date", datetime.date.today())
         # print("product date", Advertisement.objects.get(product_id=item.id).ad_date_time.date())
         string1 = str(datetime.date.today() - Advertisement.objects.get(product_id=item.id).ad_date_time.date())
-        s1 = string1.split(" ")[0]
+        s1 = string1.split(" ")[0].split(":")[0]
         if int(s1) <= 30:
             product_objs.append({'item':item, 'item_ad':Advertisement.objects.get(product_id=item.id)})
     
@@ -343,7 +343,7 @@ def home(request):
     if sort_according:
         if sort_according == 'High to low price':
             products = products.order_by("-price")
-        elif sort_according == 'low to high price':
+        elif sort_according == 'Low to high price':
             products = products.order_by("price")
         elif sort_according == "Older first":
             products = products.order_by("-pk")
@@ -358,7 +358,7 @@ def home(request):
     for item in products:
         # to show last 30 days product only
         string1 = str(datetime.date.today() - Advertisement.objects.get(product_id=item.id).ad_date_time.date())
-        s1 = string1.split(" ")[0]
+        s1 = string1.split(" ")[0].split(":")[0]
         if int(s1) <= 30:
             product_objs.append({'item':item, 'item_ad':Advertisement.objects.get(product_id=item.id)})
     
